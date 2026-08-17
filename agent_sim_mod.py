@@ -9,7 +9,7 @@ class Agent:
     is_alpha: bool = False
 
 def simulate_step(agents: List[Agent], has_alpha: bool, resource_level: float = 1.0, 
-                  brain_cost_factor: float = 0.8, beta_cog_reduction: float = 0.1) -> List[Agent]:
+                  brain_cost_factor: float = 1.5, beta_cog_reduction: float = 0.1) -> List[Agent]:
     
     next_gen = []
     alpha_agent = None
