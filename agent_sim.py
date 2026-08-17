@@ -1,3 +1,4 @@
+
 import random
 
 class Agent:
@@ -22,7 +23,7 @@ def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0,
         base_offspring = 1.5
 
         # Стоимость мозга: чем выше когнитивные способности, тем больше нужно ресурсов
-        brain_cost = agent.cog_ability * 0.8  # коэффициент стоимости
+        brain_cost = agent.cog_ability * 1.5  # коэффициент стоимости
         # Если ресурсов мало, а мозг большой — агент рискует не выжить или оставить меньше детей
         resource_penalty = max(0, brain_cost - (resource_level * 2.0))
         # Чем сильнее дефицит ресурсов, тем выше штраф
@@ -74,18 +75,12 @@ population = [Agent(cog_ability=1.0) for _ in range(20)]
 
 print("Поколение | Средний 'размер мозга' (cog_ability) | Режим ")
 for gen in range(1, 21):
-    # Первые 5 поколений - без альфы (рост мозга)
-    if gen <= 15:
+    # Первые 10 поколений - без альфы (рост мозга)
+    if gen <= 10:
         population = simulate_generation(population, has_alpha=False)
         mode = "Без альфы"
     else:
-        # После 15-го поколения появляется альфа (смена режима)
-        # alpha = population[0] 
-        # alpha.is_alpha = True
-        # population = simulate_generation(population, has_alpha=True, alpha_agent=alpha)
-        # mode = "С альфой"
-
-
+        # После 10-го поколения появляется альфа (смена режима)
         alpha = population[0]
         alpha.is_alpha = True
         population = simulate_generation(population, has_alpha=True, alpha_agent=alpha)
