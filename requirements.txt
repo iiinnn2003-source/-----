@@ -1,0 +1,7 @@
+# Core dependencies for Agent-Based Modeling (ABM)
+numpy==1.26.4
+
+# Optional but recommended for future expansion:
+# pandas>=2.2.0      # Для удобной выгрузки графиков в DataFrame
+# matplotlib>=3.8.0  # Если захотите рисовать графики прямо из Python
+
