@@ -1,4 +1,5 @@
 
+
 import random
 
 class Agent:
@@ -46,7 +47,7 @@ def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0,
                 avg_offspring = 2.5
                 agent.cog_ability = agent.cog_ability * (1 - beta_cog_reduction)
             else:
-                avg_offspring = 1.0 - (0.3 - pair_bonus)     # В иерархической группе бонус от пары почти не работает — важнее близость к альфе
+                avg_offspring = 1.5 - (0.3 - pair_bonus)     # В иерархической группе бонус от пары почти не работает — важнее близость к альфе
         else:
             # РЕЖИМ БЕЗ АЛЬФЫ: приспособленность прямо пропорциональна когнитивным способностям
             # Базовая плодовитость + бонус за когнитивные способности + бонус за стабильную пару
@@ -81,7 +82,12 @@ for gen in range(1, 21):
         mode = "Без альфы"
     else:
         # После 10-го поколения появляется альфа (смена режима)
-        alpha = population[0]
+        
+        # Поиск лидера по признаку максиммальных когнитивных способностей
+        alpha = max(population, key=lambda x: x.cog_ability)
+        # alpha = population[0]
+        # print(f"{alpha.cog_ability:.2f} ")
+
         alpha.is_alpha = True
         population = simulate_generation(population, has_alpha=True, alpha_agent=alpha)
         mode = "С альфой и бетами"
