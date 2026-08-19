@@ -64,6 +64,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Команда, которая выполнится при старте контейнера
 CMD ["python", "./agent_sim_ref.py"]
+```
 
 ### Шаг 2: Сборка и запуск образа
 
