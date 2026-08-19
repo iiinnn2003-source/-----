@@ -64,3 +64,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Команда, которая выполнится при старте контейнера
 CMD ["python", "./agent_sim_ref.py"]
+
+### Шаг 2: Сборка и запуск образа
+
+1. Откройте терминал в папке с проектом и выполните команды:
+    ```bash
+    docker build -t agent-cognitive-model .
+    ```
+(Точка в конце обязательна).
+
+2. Запуск контейнера:
+Чтобы результаты сохранились на вашем компьютере, а не исчезли вместе с остановкой контейнера, нужно подключить volume (папку):
+    ```bash
+    docker run --rm -v "$(pwd)/outputs":/app/outputs agent-cognitive-model
+    ```
