@@ -48,7 +48,7 @@ FROM python:3.11-slim
 RUN apt-get update && apt-get install -y --no-install-recommends gcc && \
     rm -rf /var/lib/apt/lists/*
 
-# Setup workin directory in the container
+# Setup working directory in the container
 WORKDIR /app
 
 # Copy files and dependencies into the image 
@@ -58,7 +58,7 @@ COPY agent_sim_ref.py .
 # Setup Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Command, that run when contaner is start
+# Command to start the container 
 CMD ["python", "./agent_sim_ref.py"]
 ```
 
