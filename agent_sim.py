@@ -1,5 +1,3 @@
-
-
 import random
 
 class Agent:
@@ -8,7 +6,7 @@ class Agent:
         self.is_alpha = is_alpha
         self.offspring_count = 0
 
-def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0, beta_cog_reduction=0.1):
+def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0, beta_cog_reduction=0.05):
     """
     has_alpha: bool - есть ли в группе формальный лидер
     alpha_agent: Agent - объект альфы, если есть
@@ -42,12 +40,12 @@ def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0,
             # Для простоты: если агент — альфа, он получает макс. потомство.
             # Если агент близок к альфе (рандомно считаем близость), он тоже получает бонус.
             if agent == alpha_agent:
-                avg_offspring = 4.0  # максимум у альфы
+                avg_offspring = base_offspring * 2.7 # максимум у альфы
             elif random.random() < 0.3:  # условная "близость" к альфе у 30% группы
-                avg_offspring = 2.5
-                agent.cog_ability = agent.cog_ability * (1 - beta_cog_reduction)
+                avg_offspring = base_offspring * 1.7
+                agent.cog_ability = agent.cog_ability * (1 - beta_cog_reduction)    # В иерархической группе бонус от пары почти не работает — важнее близость к альфе
             else:
-                avg_offspring = 1.5 - (0.3 - pair_bonus)     # В иерархической группе бонус от пары почти не работает — важнее близость к альфе
+                avg_offspring = base_offspring - (0.3 - pair_bonus)     
         else:
             # РЕЖИМ БЕЗ АЛЬФЫ: приспособленность прямо пропорциональна когнитивным способностям
             # Базовая плодовитость + бонус за когнитивные способности + бонус за стабильную пару
@@ -74,7 +72,7 @@ def simulate_generation(agents, has_alpha, alpha_agent=None, resource_level=1.0,
 # Начальное состояние: группа без альфы, средние когнитивные способности 1.0
 population = [Agent(cog_ability=1.0) for _ in range(20)]
 
-print("Поколение | Средний 'размер мозга' (cog_ability) | Режим ")
+print("Поколение | Средний 'размер мозга' (cog_ability) | Режим | Популяция")
 for gen in range(1, 21):
     # Первые 10 поколений - без альфы (рост мозга)
     if gen <= 10:
@@ -94,7 +92,7 @@ for gen in range(1, 21):
 
     
     avg_cog = sum(a.cog_ability for a in population) / len(population) if population else 0
-    print(f"{gen:9} | {avg_cog:.2f} | {mode} ")
+    print(f"{gen:9} | {avg_cog:.2f} | {mode} | {len(population)}")
 
 
 
