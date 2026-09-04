@@ -59,7 +59,7 @@ $$
 
 ### 3.4 Доступная работа железа
 $$
-p_{\text{total}} = P_{\text{peak}} \cdot T_{\text{window}}
+a_{\text{total}} = P_{\text{peak}} \cdot T_{\text{window}}
 $$
 
 
